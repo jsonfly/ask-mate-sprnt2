@@ -2,6 +2,8 @@ from flask import Flask, render_template, url_for, request, redirect
 import data_handler
 import data_manager
 from collections import OrderedDict
+from datetime import datetime
+
 import time
 
 app = Flask(__name__)
@@ -26,7 +28,7 @@ def q_id(question_id):
     elif request.method == 'POST':
         if request.form["btn"] == "Send comment":
             answer = OrderedDict()
-            answer['submission_time'] = str(int(time.time()))
+            answer['submission_time'] = datetime.now()
             answer['vote_number'] =	None
             answer['question_id'] = question_id
             answer['message'] = request.form.get('comment')
@@ -67,7 +69,7 @@ def add_question():
     if request.method == 'GET':
         return render_template('add_question.html')
     if request.method == 'POST':
-        question = {'submission_time': int(time.time()), 'view_number': None, 'vote_number': None,
+        question = {'submission_time': datetime.now(), 'view_number': None, 'vote_number': None,
                     'title': request.form.get('title'), 'message': request.form.get('message'), 'image': None}
         data_manager.insert_question(question)
         return redirect(url_for('get_question_list'))
