@@ -1,0 +1,39 @@
+{#<!DOCTYPE html>#}
+{#<html lang="en" xmlns: xmlns:>#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1.0">#}
+{#    <title>Question per ID</title>#}
+{#</head>#}
+{% extends "layout.html" %}
+
+{% block page_title %}
+    Ask Mate Q&A
+{% endblock %}
+{% block content %}
+<body>
+    <strong><em>Question:</em></strong><br><br>
+
+    <strong>{{ title }}</strong>
+    {{ message }}
+    <br><br>
+    <strong><em>Answers:</em></strong><br>
+
+    {% for answer in answers %}
+        <p>{{ answer['message'] }}</p>
+        <form action="{{ url_for('delete_answer', answer_id=answer['id']) }}" method="POST">
+            <input type="hidden" name="question_id" value={{ answer['question_id'] }}>
+            <input type="submit" name='btn' value="Delete answer"></form>
+    {% endfor %}
+
+    <form method="POST">
+        <strong><label for="comment">Your comment:</label></strong><br>
+        <textarea rows="4" cols="50" required name="comment"></textarea><br>
+        <input type="submit" name='btn' value="Send comment"><br><br>
+        
+    </form>
+    <form method="POST"><input type="submit" name='btn' value="Edit question">
+        <input type="submit" name='btn' value="Delete question"></form>
+</body>
+    {% include 'footer.html' %}
+{% endblock %}
