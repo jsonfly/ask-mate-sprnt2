@@ -27,7 +27,11 @@
         {% for question in all_data_reversed %}
     <tr>
         <td><a href="{{ url_for('q_id', question_id=question['id']) }}">{{ question['id'] }}</a></td>
-        <td><a href="{{ url_for('vote_question', question_id=question['id']) }}">{{ question['vote_number'] }}</a></td>
+        <td><a href="{{ url_for('vote_question_up', question_id=question['id']) }}">
+            <span style='font-size:15px;'>&#128077;</span>
+        </a><a href="{{ url_for('vote_question_down', question_id=question['id']) }}">
+            <span style='font-size:15px;'>&#128078;</span>
+        </a>{{ question['vote_number'] }}</td>
         <td>{{ question["title"] }}</td>
         <td>{{ question["message"] }}</td>
     </tr>

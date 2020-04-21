@@ -16,6 +16,24 @@ def get_questions(cursor: RealDictCursor) -> list:
 
 
 @database_common.connection_handler
+def get_vote_number(cursor: RealDictCursor, q_id:int) -> list:
+    query = """
+        SELECT vote_number
+        FROM question
+        WHERE id = %(q_id)s"""
+    cursor.execute(query, {'q_id': q_id})
+    return cursor.fetchall()
+
+
+@database_common.connection_handler
+def write_vote_number(cursor: RealDictCursor, q_id:int, v_number) -> list:
+    query = """
+        UPDATE question SET vote_number = %(vote_number)s
+        WHERE id = %(q_id)s"""
+    cursor.execute(query, {'vote_number': v_number, 'q_id': q_id})
+
+
+@database_common.connection_handler
 def get_question_by_id(cursor: RealDictCursor, question_id):
     query = """
         SELECT * FROM question WHERE id = %(qid)s;"""

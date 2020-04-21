@@ -74,9 +74,20 @@ def add_question():
         data_manager.insert_question(question)
         return redirect(url_for('get_question_list'))
 
+
 @app.route("/question/<question_id>/vote_up", methods=['GET', 'POST'])
-def vote_question(question_id):
-    print('sziasztok')
+def vote_question_up(question_id):
+    vote_number = data_manager.get_vote_number(question_id)
+    vote_number[0]['vote_number'] += 1
+    data_manager.write_vote_number(question_id, vote_number[0]['vote_number'])
+    return redirect('/list')
+
+
+@app.route("/question/<question_id>/vote_down", methods=['GET', 'POST'])
+def vote_question_down(question_id):
+    vote_number = data_manager.get_vote_number(question_id)
+    vote_number[0]['vote_number'] -= 1
+    data_manager.write_vote_number(question_id, vote_number[0]['vote_number'])
     return redirect('/list')
 
 if __name__ == "__main__":
