@@ -74,6 +74,10 @@ def add_question():
         data_manager.insert_question(question)
         return redirect(url_for('get_question_list'))
 
+@app.route("/question/<question_id>/vote_up", methods=['GET', 'POST'])
+def vote_question(question_id):
+    print('sziasztok')
+    return redirect('/list')
 
 if __name__ == "__main__":
     app.run(debug=True)

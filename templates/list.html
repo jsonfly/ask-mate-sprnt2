@@ -18,6 +18,7 @@
     <thead>
     <tr>
         <th>ID</th>
+        <th>Voted</th>
         <th>Title</th>
         <th>Question</th>
     </tr>
@@ -26,6 +27,7 @@
         {% for question in all_data_reversed %}
     <tr>
         <td><a href="{{ url_for('q_id', question_id=question['id']) }}">{{ question['id'] }}</a></td>
+        <td><a href="{{ url_for('vote_question', question_id=question['id']) }}">{{ question['vote_number'] }}</a></td>
         <td>{{ question["title"] }}</td>
         <td>{{ question["message"] }}</td>
     </tr>
