@@ -23,8 +23,9 @@ def q_id(question_id):
     if request.method == 'GET':
         message = question['message']
         title = question['title']
+        question_id = question['id']
         answers = data_manager.get_answer_by_question_id(question_id)
-        return render_template("question_id.html", message=message, title=title, answers=answers)
+        return render_template("question_id.html", message=message, title=title, answers=answers, question_id=question_id)
     elif request.method == 'POST':
         if request.form["btn"] == "Send comment":
             answer = OrderedDict()
@@ -89,6 +90,18 @@ def vote_question_down(question_id):
     vote_number[0]['vote_number'] -= 1
     data_manager.write_vote_number(question_id, vote_number[0]['vote_number'])
     return redirect('/list')
+
+
+@app.route("/question/<question_id>/new-comment", methods=['GET', 'POST'])
+def add_comment(question_id):
+    if request.method == 'GET':
+        return render_template('add_comment.html')
+    if request.method == 'POST':
+        comment = request.form.get('comment')
+        data_manager.write_comment_to_question(question_id, datetime.now(), comment)
+    return redirect(url_for('q_id', question_id=question_id))
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)

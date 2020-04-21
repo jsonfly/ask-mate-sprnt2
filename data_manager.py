@@ -120,3 +120,11 @@ def delete_answer_by_id(cursor: RealDictCursor, answer_id: int):
         DELETE FROM answer WHERE id = %(aid)s;"""
     cursor.execute(query, {'aid': answer_id})
     return
+
+
+@database_common.connection_handler
+def write_comment_to_question(cursor: RealDictCursor, q_id, s_time, ct):
+    query = """
+    INSERT INTO comment(question_id, submission_time, message)
+    VALUES (%(q_id)s, %(s_time)s, %(ct)s);"""
+    cursor.execute(query, {'q_id': q_id, 's_time': s_time, 'ct': ct})

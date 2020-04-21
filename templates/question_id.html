@@ -7,16 +7,15 @@
 {#</head>#}
 {% extends "layout.html" %}
 
-{% block page_title %}
-    Ask Mate Q&A
-{% endblock %}
 {% block content %}
-<body>
+<>
     <strong><em>Question:</em></strong><br><br>
-
     <strong>{{ title }}</strong>
     {{ message }}
     <br><br>
+    <a href="{{  url_for('add_comment',question_id= question_id) }}"> New Comment </a> <br> <br>
+
+
     <strong><em>Answers:</em></strong><br>
 
     {% for answer in answers %}
