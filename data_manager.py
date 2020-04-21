@@ -102,12 +102,14 @@ def update_question(cursor: RealDictCursor, question_id: int, message: str, titl
 @database_common.connection_handler
 def insert_question(cursor: RealDictCursor, question: dict):
     query = """
-        INSERT INTO question (submission_time, title, message)
-        VALUES (%(st)s, %(ttl)s, %(msg)s);"""
+        INSERT INTO question (submission_time, title, message, vote_number, view_number)
+        VALUES (%(st)s, %(ttl)s, %(msg)s, %(vo_n)s, %(vi_n)s);"""
     cursor.execute(query, {
         'st': question['submission_time'],
         'msg': question['message'],
-        'ttl': question['title']
+        'ttl': question['title'],
+        'vo_n': question['vote_number'],
+        'vi_n': question['view_number']
     })
     return
 

@@ -29,7 +29,7 @@ def q_id(question_id):
         if request.form["btn"] == "Send comment":
             answer = OrderedDict()
             answer['submission_time'] = datetime.now()
-            answer['vote_number'] =	None
+            answer['vote_number'] =	0
             answer['question_id'] = question_id
             answer['message'] = request.form.get('comment')
             answer['image'] = None
@@ -69,7 +69,7 @@ def add_question():
     if request.method == 'GET':
         return render_template('add_question.html')
     if request.method == 'POST':
-        question = {'submission_time': datetime.now(), 'view_number': None, 'vote_number': None,
+        question = {'submission_time': datetime.now(), 'view_number': 0, 'vote_number': 0,
                     'title': request.form.get('title'), 'message': request.form.get('message'), 'image': None}
         data_manager.insert_question(question)
         return redirect(url_for('get_question_list'))
