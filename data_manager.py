@@ -139,12 +139,12 @@ def get_question_comments(cursor: RealDictCursor, qid) -> list:
     return cursor.fetchall()
 
 @database_common.connection_handler
-def get_answer_comments(cursor: RealDictCursor, aid) -> list:
+def get_answer_comments(cursor: RealDictCursor) -> list:
     query = """
         SELECT *
-        FROM comment WHERE answer_id = %(aid)s
+        FROM comment WHERE answer_id is not null
         ORDER BY submission_time"""
-    cursor.execute(query, {'aid': aid})
+    cursor.execute(query)
     return cursor.fetchall()
 
 

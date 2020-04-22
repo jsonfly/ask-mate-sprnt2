@@ -28,7 +28,8 @@ def q_id(question_id):
         answer_id = answers[0]['id']
         print(answer_id)
         comments_questions = data_manager.get_question_comments(question_id)
-        comments_answers = data_manager.get_answer_comments(answer_id)
+        comments_answers = data_manager.get_answer_comments()
+        print(comments_answers)
         return render_template("question_id.html", message=message, title=title, answers=answers,
                                question_id=question_id, comments_questions=comments_questions,
                                comments_answers=comments_answers, answer_id=answer_id)
