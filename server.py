@@ -30,7 +30,10 @@ def q_id(question_id):
         title = question['title']
         question_id = question['id']
         answers = data_manager.get_answer_by_question_id(question_id)
-        answer_id = answers[0]['id']
+        if answers:
+            answer_id = answers[0]['id']
+        else:
+            answer_id = 0
         print(answer_id)
         comments_questions = data_manager.get_question_comments(question_id)
         comments_answers = data_manager.get_answer_comments()
