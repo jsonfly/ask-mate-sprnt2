@@ -128,3 +128,21 @@ def write_comment_to_question(cursor: RealDictCursor, q_id, s_time, ct):
     INSERT INTO comment(question_id, submission_time, message)
     VALUES (%(q_id)s, %(s_time)s, %(ct)s);"""
     cursor.execute(query, {'q_id': q_id, 's_time': s_time, 'ct': ct})
+
+@database_common.connection_handler
+def get_question_comments(cursor: RealDictCursor, qid) -> list:
+    query = """
+        SELECT *
+        FROM comment WHERE question_id = %(qid)s
+        ORDER BY submission_time"""
+    cursor.execute(query, {'qid': qid})
+    return cursor.fetchall()
+
+@database_common.connection_handler
+def get_answer_comments(cursor: RealDictCursor, aid) -> list:
+    query = """
+        SELECT *
+        FROM comment WHERE answer_id = %(aid)s
+        ORDER BY submission_time"""
+    cursor.execute(query, {'aid': aid})
+    return cursor.fetchall()

@@ -13,26 +13,43 @@
     <strong>{{ title }}</strong>
     {{ message }}
     <br><br>
-    <a href="{{  url_for('add_comment',question_id= question_id) }}"> New Comment </a> <br> <br>
-
+    <a href="{{  url_for('add_question_comment',question_id= question_id) }}"> New Comment to question</a> <br> <br>
+    <p><strong>Comments to this question:</strong></p>
+    {% for comment in comments_questions %}
+    <p>{{ comment.message }}</p>
+    {% endfor %}
 
     <strong><em>Answers:</em></strong><br>
 
     {% for answer in answers %}
         <p>{{ answer['message'] }}</p>
+        {% for comment in comments_answers %}
+            {% if answer['answer_id'] %}
+            <p style="margin-left: 20px">{{ comment.message }}</p>
+            {% endif %}
+        {% endfor %}
         <form action="{{ url_for('delete_answer', answer_id=answer['id']) }}" method="POST">
             <input type="hidden" name="question_id" value={{ answer['question_id'] }}>
-            <input type="submit" name='btn' value="Delete answer"></form>
+            <input type="submit" name='btn' value="Delete answer"><a href="{{ url_for('add_answer_comment',
+                answer_id=answer['id']) }}">Add comment to this answer</a></form>
     {% endfor %}
 
     <form method="POST">
-        <strong><label for="comment">Your comment:</label></strong><br>
+        <strong><label for="comment">Your answer:</label></strong><br>
         <textarea rows="4" cols="50" required name="comment"></textarea><br>
-        <input type="submit" name='btn' value="Send comment"><br><br>
+        <input type="submit" name='btn' value="Send answer"><br><br>
         
     </form>
     <form method="POST"><input type="submit" name='btn' value="Edit question">
         <input type="submit" name='btn' value="Delete question"></form>
+
+{#    <a href="{{  url_for('add_answer_comment',question_id= question_id) }}"> New Comment to answer</a> <br> <br>#}
+{#    <p><strong>Comments to this answer:</strong></p>#}
+{#    {% for comment in comments_answers %}#}
+{#        {% if comment %}#}
+{#            <p>{{ comment.message }}</p>#}
+{#        {% endif %}#}
+{#    {% endfor %}#}
 </body>
     {% include 'footer.html' %}
 {% endblock %}
