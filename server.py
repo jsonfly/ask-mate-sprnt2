@@ -8,9 +8,14 @@ import time
 
 app = Flask(__name__)
 
+@app.route("/")
+def get_five():
+    latest_questions = data_manager.get_latest_questions()
+    # all_questions_reversed = data_handler.sorting(all_questions, sortkey='id', rev=True)
+    return render_template("landing.html", all_data_reversed=latest_questions)
+
 
 @app.route("/list")
-@app.route("/")
 def get_question_list():
     all_questions = data_manager.get_questions()
     all_questions_reversed = data_handler.sorting(all_questions, sortkey='id', rev=True)

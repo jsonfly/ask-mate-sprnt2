@@ -154,3 +154,13 @@ def write_comment_to_answer(cursor: RealDictCursor, a_id, s_time, ct):
     INSERT INTO comment(answer_id, submission_time, message)
     VALUES (%(a_id)s, %(s_time)s, %(ct)s);"""
     cursor.execute(query, {'a_id': a_id, 's_time': s_time, 'ct': ct})
+
+
+@database_common.connection_handler
+def get_latest_questions(cursor: RealDictCursor) -> list:
+    query = """
+        SELECT *
+        FROM question
+        ORDER BY submission_time DESC LIMIT 5"""
+    cursor.execute(query)
+    return cursor.fetchall()
