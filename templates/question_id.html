@@ -22,16 +22,16 @@
     <strong><em>Answers:</em></strong><br>
 
     {% for answer in answers %}
-        <p>{{ answer['message'] }}</p>
+        <p>{{ answer['message'] }} </p>
         {% for comment in comments_answers %}
-            {% if answer['answer_id'] %}
-            <p style="margin-left: 20px">{{ comment.message }}</p>
+            {% if answer.id==comment.answer_id %}
+                <p style="margin-left: 20px">{{ comment.message }}</p>
             {% endif %}
         {% endfor %}
         <form action="{{ url_for('delete_answer', answer_id=answer['id']) }}" method="POST">
             <input type="hidden" name="question_id" value={{ answer['question_id'] }}>
             <input type="submit" name='btn' value="Delete answer"><a href="{{ url_for('add_answer_comment',
-                answer_id=answer['id']) }}">Add comment to this answer</a></form>
+                question_id= question_id, answer_id=answer['id'] ) }}">Add comment to this answer</a></form>
     {% endfor %}
 
     <form method="POST">

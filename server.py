@@ -26,11 +26,12 @@ def q_id(question_id):
         question_id = question['id']
         answers = data_manager.get_answer_by_question_id(question_id)
         answer_id = answers[0]['id']
+        print(answer_id)
         comments_questions = data_manager.get_question_comments(question_id)
         comments_answers = data_manager.get_answer_comments(answer_id)
         return render_template("question_id.html", message=message, title=title, answers=answers,
                                question_id=question_id, comments_questions=comments_questions,
-                               comments_answers=comments_answers)
+                               comments_answers=comments_answers, answer_id=answer_id)
     elif request.method == 'POST':
         if request.form["btn"] == "Send answer":
             answer = OrderedDict()
@@ -107,14 +108,15 @@ def add_question_comment(question_id):
     return redirect(url_for('q_id', question_id=question_id))
 
 
-@app.route("/answer/<answer_id>/new-comment", methods=['GET', 'POST'])
-def add_answer_comment(answer_id):
+@app.route("/answer/<question_id>/<answer_id>/new-comment", methods=['GET', 'POST'])
+def add_answer_comment(question_id, answer_id):
     if request.method == 'GET':
         return render_template('add_answer_comment.html', answer_id=answer_id)
     if request.method == 'POST':
         comment = request.form.get('comment')
         data_manager.write_comment_to_answer(answer_id, datetime.now(), comment)
-    return redirect(url_for('q_id', answer_id=answer_id))
+        print(question_id)
+    return redirect(url_for('q_id', question_id=question_id))
 
 if __name__ == "__main__":
     app.run(debug=True)

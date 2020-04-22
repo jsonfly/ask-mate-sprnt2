@@ -146,3 +146,11 @@ def get_answer_comments(cursor: RealDictCursor, aid) -> list:
         ORDER BY submission_time"""
     cursor.execute(query, {'aid': aid})
     return cursor.fetchall()
+
+
+@database_common.connection_handler
+def write_comment_to_answer(cursor: RealDictCursor, a_id, s_time, ct):
+    query = """
+    INSERT INTO comment(answer_id, submission_time, message)
+    VALUES (%(a_id)s, %(s_time)s, %(ct)s);"""
+    cursor.execute(query, {'a_id': a_id, 's_time': s_time, 'ct': ct})
