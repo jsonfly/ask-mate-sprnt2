@@ -16,20 +16,12 @@ def get_five():
         return render_template("landing.html", all_data_reversed=latest_questions)
     elif request.method == "POST":
         search_text = request.form.get('search_text')
-        search_results = data_manager.search_questions(search_text)
-        message_list = []
-        for messages in search_results:
-            message_list.append(messages['message'])
-        print(message_list)
-        print(type(message_list))
-        return redirect(url_for('searched_question', search_result=message_list))
+        return redirect(url_for('searched_question', search_text=search_text))
 
 
-@app.route("/search_result")
-def searched_question():
-    search_result = request.args.get('search_result')
-    print(search_result)
-    print(type(search_result))
+@app.route("/search_result/<search_text>")
+def searched_question(search_text):
+    search_result = data_manager.search_questions(search_text)
     return render_template('search_result.html', search_result=search_result)
 
 

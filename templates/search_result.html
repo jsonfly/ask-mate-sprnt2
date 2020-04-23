@@ -15,7 +15,7 @@
         {% for question in search_result %}
 
     <tr>
-        <td>{{ question }}</td>
+        <td><a href="{{ url_for('q_id', question_id=question['id']) }}"> {{ question.message }}</a></td>
     </tr>
         {% endfor %}
     </tbody>
