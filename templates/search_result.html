@@ -1,0 +1,26 @@
+
+{% extends "layout.html" %}
+
+
+{% block content %}
+<body>
+    <h1>Questions</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Question</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for question in search_result %}
+
+    <tr>
+        <td>{{ question }}</td>
+    </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</body>
+
+{% endblock %}

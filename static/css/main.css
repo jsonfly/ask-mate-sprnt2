@@ -38,3 +38,32 @@ a:link {
 a:visited {
     text-decoration: none;
 }
+
+.r {
+    display: inline-block;
+}
+.a {
+    display: inline-block;
+}
+
+.q {
+    display: inline;
+}
+
+.d {
+    display: block;
+}
+
+
+
+span.question-block {
+    display: inline-block;
+    width: 50%;
+}
+span.answer-block {
+    display: inline-block;
+    width: 50%;
+}
+.wrapper {
+    display: inline;
+}
