@@ -9,7 +9,7 @@
 
 {% block content %}
 <div class="wrapper">
-<span class="question-block">
+<div class="question-block">
     <strong><em>Question:</em></strong><br><br>
     <strong>{{ title }}</strong>
     {{ message }}
@@ -19,8 +19,8 @@
     {% for comment in comments_questions %}
     <p>{{ comment.message }}</p>
     {% endfor %}
-</span>
-<span class="answer-block">
+</div>
+<div class="answer-block">
     <strong><em>Answers:</em></strong><br>
 
     {% for answer in answers %}
@@ -53,11 +53,12 @@
         <strong><label for="comment">Your answer:</label></strong><br>
         <textarea rows="4" cols="50" required name="comment"></textarea><br>
         <input type="submit" name='btn' value="Send answer"><br><br>
-        
+</div>
+</div>
+<div class="buttons">
     </form>
     <form method="POST"><input type="submit" name='btn' value="Edit question">
         <input type="submit" name='btn' value="Delete question"></form>
-</span>
 </div>
 
 {#    <a href="{{  url_for('add_answer_comment',question_id= question_id) }}"> New Comment to answer</a> <br> <br>#}
@@ -68,5 +69,4 @@
 {#        {% endif %}#}
 {#    {% endfor %}#}
 </body>
-    {% include 'footer.html' %}
 {% endblock %}
